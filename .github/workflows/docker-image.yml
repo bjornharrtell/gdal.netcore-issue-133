@@ -12,9 +12,30 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      mssql:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        ports:
+          - 1433:1433
+        env:
+          SA_PASSWORD: "YourStrong@Passw0rd"
+          ACCEPT_EULA: "Y"
+        options: >-
+          --health-cmd "sqlcmd -U sa -P YourStrong@Passw0rd -Q 'SELECT 1' || exit 1"
+          --health-interval 10s
+          --health-start-period 30s
+          --health-timeout 10s
+          --health-retries 3
+
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name
+    - name: Wait for MSSQL to be ready
+      run: |
+        until docker exec $(docker ps -q -f "ancestor=mcr.microsoft.com/mssql/server:2019-latest") /opt/mssql-tools/bin/sqlcmd -U sa -P YourStrong@Passw0rd -Q "SELECT 1"; do
+          echo "Waiting for MSSQL to be ready..."
+          sleep 10
+        done
     - name: Run the Docker image
       run: docker run my-image-name
