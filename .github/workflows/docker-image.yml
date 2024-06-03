@@ -30,6 +30,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Create Docker network
+      run: docker network create my-network
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name
     - name: Wait for MSSQL to be ready
