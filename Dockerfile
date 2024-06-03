@@ -8,5 +8,5 @@ RUN ACCEPT_EULA=Y apt-get install -y msodbcsql17 unixodbc-dev mssql-tools
 WORKDIR /app
 COPY . .
 RUN dotnet build
-CMD ogrinfo "MSSQL:server=localhost;database=test;uid=sa;pwd=YourStrong@Passw0rd;driver={ODBC Driver 17 for SQL Server}"
+CMD ogrinfo "MSSQL:server=localhost;database=TestDB;uid=sa;pwd=YourStrong@Passw0rd;driver={ODBC Driver 17 for SQL Server}"
 #dotnet run

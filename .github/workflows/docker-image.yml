@@ -41,6 +41,6 @@ jobs:
       run: docker logs $(docker ps -q -f "ancestor=mcr.microsoft.com/mssql/server:2019-latest")
     - name: Create database
       run: |
-        docker exec $(docker ps -q -f "ancestor=mcr.microsoft.com/mssql/server:2019-latest") /opt/mssql-tools/bin/sqlcmd -U sa -P YourStrong@Passw0rd -Q "CREATE DATABASE test"
+        docker exec $(docker ps -q -f "ancestor=mcr.microsoft.com/mssql/server:2019-latest") /opt/mssql-tools/bin/sqlcmd -U sa -P YourStrong@Passw0rd -Q "CREATE DATABASE TestDB"
     - name: Run the Docker image
       run: docker run my-image-name

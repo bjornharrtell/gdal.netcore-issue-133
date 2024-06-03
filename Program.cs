@@ -15,5 +15,5 @@ Console.WriteLine("OGR Vector Drivers: {0}", Ogr.GetDriverCount());
                     .Select(x => $"\"{x}\""));
                 Console.WriteLine(driverList);
 
-var ogrPath = $"MSSQL:server=localhost;database=test;uid=sa;pwd=YourStrong@Passw0rd;driver={{ODBC Driver 17 for SQL Server}}";
+var ogrPath = $"MSSQL:server=localhost;database=TestDB;uid=sa;pwd=YourStrong@Passw0rd;driver={{ODBC Driver 17 for SQL Server}}";
 var ogrSource = Ogr.Open(ogrPath, 0);
