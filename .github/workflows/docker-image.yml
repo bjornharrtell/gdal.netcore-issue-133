@@ -21,6 +21,7 @@ jobs:
           SA_PASSWORD: "YourStrong@Passw0rd"
           ACCEPT_EULA: "Y"
         options: >-
+          --network my-network
           --health-cmd "exit 0"
           --health-interval 10s
           --health-start-period 30s
@@ -43,4 +44,4 @@ jobs:
       run: |
         docker exec $(docker ps -q -f "ancestor=mcr.microsoft.com/mssql/server:2019-latest") /opt/mssql-tools/bin/sqlcmd -U sa -P YourStrong@Passw0rd -Q "CREATE DATABASE TestDB"
     - name: Run the Docker image
-      run: docker run --network=host my-image-name
+      run: docker run --network=my-network my-image-name
